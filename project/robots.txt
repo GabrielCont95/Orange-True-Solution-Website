@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+
+Disallow: /Thank%20You.html
+
+Sitemap: https://www.orangetruesolution.com/sitemap.xml

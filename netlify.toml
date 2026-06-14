@@ -1,0 +1,37 @@
+# Netlify deployment configuration for Orange True Solution
+
+[build]
+  publish = "project"
+
+# Redirect root to main HTML file
+[[redirects]]
+  from = "/"
+  to = "/Orange True Solution.html"
+  status = 200
+
+# Friendly URL alias
+[[redirects]]
+  from = "/thank-you"
+  to = "/Thank You.html"
+  status = 200
+
+# Security and performance headers
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    X-XSS-Protection = "1; mode=block"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=()"
+
+# Long cache for static assets
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
+
+[[headers]]
+  for = "/media/*"
+  [headers.values]
+    Cache-Control = "public, max-age=2592000"
