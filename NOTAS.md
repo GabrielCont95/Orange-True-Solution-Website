@@ -21,25 +21,25 @@
 
 ## 🔄 Flujo para publicar cambios (lo más importante)
 
-Cada vez que se cambia el código, hay que hacer **dos cosas**: subirlo a GitHub y publicarlo en Netlify.
+GitHub y Netlify **ya están conectados** (deploy automático). Solo hay que subir a GitHub
+y Netlify publica el sitio solo. Ya NO se usa `netlify deploy`.
 
 ```powershell
 # 1. Guardar los cambios en el historial local de Git
 git add .
 git commit -m "Descripción corta de lo que cambió"
 
-# 2. Subir los cambios a GitHub (respaldo + control de versiones)
+# 2. Subir los cambios a GitHub  →  Netlify publica solo 🪄
 git push
-
-# 3. Publicar el sitio en vivo en Netlify
-netlify deploy --dir=project --prod
 ```
 
 **Por qué cada paso:**
 - `git add .` → marca TODOS los archivos modificados para guardarlos. *(El punto significa "todo".)*
 - `git commit -m "..."` → guarda una "foto" de los cambios en tu PC con una nota de qué cambió. **Aún NO sube nada a internet.**
-- `git push` → ahora sí, sube esa foto a GitHub (la nube). Esto es tu respaldo.
-- `netlify deploy --dir=project --prod` → toma la carpeta `project` y la publica en el sitio en vivo. `--prod` significa "producción" (el sitio real, no una prueba).
+- `git push` → sube esa foto a GitHub. **Netlify detecta el push automáticamente y reconstruye el sitio** (tarda ~30 seg – 1 min). No hay que ejecutar nada más.
+
+> ⚠️ Como el deploy es automático por GitHub, **NO mezclar** con `netlify deploy` manual.
+> El sitio real siempre refleja lo último que está en la rama `main` de GitHub.
 
 ---
 
@@ -82,23 +82,21 @@ gh auth status
 
 ## ☁️ Netlify
 
+El deploy es **automático vía GitHub**, así que normalmente NO necesitas comandos de Netlify.
+Estos son útiles solo para revisar el estado:
+
 ```powershell
 # Ver la cuenta y el sitio conectado
 netlify status
 
 # Abrir el panel del sitio en el navegador
 netlify open
-
-# Publicar a producción (el sitio en vivo)
-netlify deploy --dir=project --prod
-
-# Publicar una PRUEBA (genera un link temporal, NO afecta el sitio real)
-netlify deploy --dir=project
 ```
 
-**Por qué:**
-- `--dir=project` → le dice a Netlify que publique la carpeta `project` (ahí están el HTML, CSS, JS, media). **Siempre incluir esto.**
-- `--prod` → publica al sitio real. **Sin** `--prod` genera solo un link de prueba para revisar antes de publicar de verdad.
+**Configuración del deploy automático (ya hecha, solo de referencia):**
+- Proveedor: GitHub → repo `GabrielCont95/Orange-True-Solution-Website`, rama `main`
+- Publish directory: `project`  ·  Build command: *(vacío)*
+- Cada `git push` a `main` dispara una nueva publicación automática.
 
 ---
 
