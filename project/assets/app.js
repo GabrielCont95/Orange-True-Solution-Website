@@ -185,6 +185,22 @@
         fd.append("Industry", get("industry"));
         fd.append("Message", get("message"));
         fd.append("Language", window.__lang === "es" ? "Español" : "English");
+        // Single-line, pipe-delimited payload so Power Automate (→ Excel, M365)
+        // can split all fields in one step. Order matches the Excel table columns.
+        function clean1(s) { return String(s || "").replace(/[\r\n|]+/g, " ").trim(); }
+        var record = [
+          role === "company" ? "Company requesting staffing services" : "Person offering services / job seeker",
+          get("name"),
+          role === "company" ? get("company") : "",
+          role === "company" ? "" : get("role"),
+          get("email"),
+          get("phone"),
+          get("industry"),
+          role === "company" ? get("workers") : "",
+          get("message"),
+          window.__lang === "es" ? "Español" : "English"
+        ].map(clean1).join(" ||| ");
+        fd.append("Record", record);
         btn.disabled = true;
         btn.textContent = dict["contact.form.sending"] || "Sending…";
         function goThanks() { window.location.href = "/thank-you?lang=" + (window.__lang || "en"); }
