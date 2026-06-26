@@ -15,7 +15,7 @@
 | Activar formulario (FormSubmit) | https://formsubmit.co/info@orangetruesolution.com |
 
 **Carpeta del proyecto en la PC:**
-`C:\Users\Edler Contreras\Desktop\Orange True Solution Web\orange-true-solution`
+`C:\Users\Gabriel Contreras\Desktop\Orange True Solution Web\orange-true-solution`
 
 ---
 
